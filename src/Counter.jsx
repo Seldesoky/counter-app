@@ -1,42 +1,75 @@
 import React, { useState } from "react";
 import Button from "./Button";
+import './styles.css';
 
 function Counter() {
   const [value, setValue] = useState(0);
+  const [inputValue, setInputValue] = useState(0);
+  const [isVisible, setIsVisible] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
-  const handleIncrement = (incrementValue) => {
-    const newValue = value + parseInt(incrementValue, 10);
-    setValue(newValue);
+  const handleIncrement = () => {
+    setValue(value + parseInt(inputValue, 10));
   };
 
-  const handleDecrement = (decrementValue) => {
-    const newValue = value - parseInt(decrementValue, 10);
-    setValue(newValue);
+  const handleDecrement = () => {
+    setValue(value - parseInt(inputValue, 10));
+  };
+
+  const handleClear = () => {
+    setValue(0);
+    setInputValue(0);
+  };
+
+  const handleToggleVisibility = () => {
+    setIsVisible(!isVisible);
+  };
+
+  const handleDoubleIncrement = () => {
+    setValue(value + parseInt(inputValue, 10) * 2);
+  };
+
+  const handleDoubleDecrement = () => {
+    setValue(value - parseInt(inputValue, 10) * 2);
+  };
+
+  const handleDivide = () => {
+    if (inputValue !== 0) {
+      setValue(value / parseInt(inputValue, 10));
+    }
+  };
+
+  const handleToggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
   };
 
   return (
-    <div>
+    <div className={isDarkMode ? "dark-mode" : ""}>
       <h1>Please Add or Subtract</h1>
       <div className="board">
-        <div id="value" style={{ color: value < 0 ? "red" : "black" }}>
-          {value}
+        {isVisible && (
+          <div id="value" style={{ color: value < 0 ? "red" : "black" }}>
+            {value}
+          </div>
+        )}
+        <div className="input-container">
+          <input
+            type="number"
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+          />
         </div>
         <div className="container">
-          <Button
-            action={() =>
-              handleIncrement(document.getElementById("number").value)
-            }
-            symbol="+"
-          />
-          <div className="value-form">
-            <input type="number" id="number" defaultValue="0" />
+          <div className="button-group">
+            <Button action={handleIncrement} symbol="+" />
+            <Button action={handleDecrement} symbol="-" />
+            <Button action={handleDoubleIncrement} symbol="++" />
+            <Button action={handleDoubleDecrement} symbol="--" />
+            <Button action={handleDivide} symbol="/" />
+            <Button action={handleClear} symbol="C" />
           </div>
-          <Button
-            action={() =>
-              handleDecrement(document.getElementById("number").value)
-            }
-            symbol="-"
-          />
+          <Button action={handleToggleVisibility} symbol="Toggle Visibility" />
+          <Button action={handleToggleDarkMode} symbol="Toggle Mode" />
         </div>
       </div>
     </div>

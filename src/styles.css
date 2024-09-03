@@ -40,8 +40,8 @@
   }
   
   button {
-    height: 4rem;
-    width: 4rem;
+    height: 5rem;
+    width: 6rem;
     margin: 0 1rem;
     font-size: 2rem;
     text-align: center;
@@ -58,3 +58,21 @@
   .red {
     color: red;
   }
+  .dark-mode {
+    background-color: #333;
+    color: #fdfcf1;
+  }
+  
+  .dark-mode #value {
+    color: #fdfcf1;
+  }
+  
+  .dark-mode button {
+    background-color: #555;
+    color: #fdfcf1;
+  }
+  
+  .dark-mode button:hover {
+    background-color: #777;
+  }
+  
